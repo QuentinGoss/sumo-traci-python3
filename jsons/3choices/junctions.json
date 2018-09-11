@@ -1,0 +1,26 @@
+{
+	"gneJ0": {
+		 "true_center_coords": [0.0,0.0],
+		 "graphical_center_coords": [10,15.0]
+	},
+	"gneJ1": {
+		 "true_center_coords": [50.0,0.0],
+		 "graphical_center_coords": [60,15.0]
+	},
+	"gneJ3": {
+		 "true_center_coords": [125.0,0.0],
+		 "graphical_center_coords": [135,15.0]
+	},
+	"gneJ5": {
+		 "true_center_coords": [175.0,0.0],
+		 "graphical_center_coords": [185,15.0]
+	},
+	"gneJ6": {
+		 "true_center_coords": [75.0,25.0],
+		 "graphical_center_coords": [85,-10.0]
+	},
+	"gneJ9": {
+		 "true_center_coords": [100.0,-25.0],
+		 "graphical_center_coords": [110,40.0]
+	}
+}
