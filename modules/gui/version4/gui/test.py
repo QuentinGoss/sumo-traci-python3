@@ -3,7 +3,7 @@ import NavigationWindow
 
 s_path_of_net_xml = "./test_map/Davenport.net.xml"
 s_window_title = "Status Window"
-n_max_window_width = 1000
+n_max_window_width = 1300
 n_max_window_height = 600
 n_cell_width = 1000
 n_edge_length_scale = 1

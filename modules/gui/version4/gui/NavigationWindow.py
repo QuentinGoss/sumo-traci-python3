@@ -10,7 +10,7 @@ class NavigationWindow:
     self.n_button_size = 20
     self.n_button_padding = 3
     self.s_window_title = 'Navigation'
-    self.n_scroll_amount = 100
+    self.n_scroll_amount = 1000
     self.l_buttons = []
     self.status_window = status_window
     

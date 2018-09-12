@@ -41,6 +41,8 @@ class StatusWindow:
     
     # Junction storage
     self.l_junctions = []
+    self.n_junctions = -1
+    self.n_edges = -1
     
     # Grid dimension initialization
     # [int columns, int rows]
@@ -119,7 +121,7 @@ class StatusWindow:
   # end def initialize()
   
   def update(self):
-    print("updating...")
+    print("\nupdating...")
   
     if self.is_cells_mode:
       self.draw_cells()
@@ -309,9 +311,11 @@ class StatusWindow:
         
         junctions_json.write('{')
         is_first_line = True
+        self.n_junctions = 0
         for s_line in net_xml:
           if '<junction ' in s_line and 'type="internal"' not in s_line:
-              
+            self.n_junctions += 1
+            print('Locating Junction #{}'.format(self.n_junctions),end='\r')
             # id
             s_line = s_line[s_line.index('id="')+len('id="'):]
             s_id = s_line[:s_line.index('"')]
@@ -366,10 +370,14 @@ class StatusWindow:
       
     # Look through the .net.xml file for edges
     is_first = True
+    self.n_edges = 0 # Status Progress
+    print()     # 
     with open(self.s_path_of_net_xml,"r") as net_xml:
       for s_line in net_xml:
         if '<edge' in s_line:
           if 'from="' in s_line:
+            self.n_edges += 1
+            print('Locating edge #{}'.format(self.n_edges),end='\r')
             # From
             s_line = s_line[s_line.index('from="')+len('from="'):]
             s_id_from = s_line[:s_line.index('"')]
@@ -387,7 +395,7 @@ class StatusWindow:
       with open(self.s_edges_json,"a") as edges_json:
         edges_json.write('\n}')
       # end with edges.json
-      input("pause!")
+      #input("pause!")
   # end def find_neighbors
   
   # Creates edge info from junctions.json
@@ -491,6 +499,78 @@ class StatusWindow:
   
   def draw_junctions(self):
     n_rad = 2
+    
+    # Our junction information is stored in junctions.json, so we read
+    # through it to find the center points.
+    n_junctions = 0
+    with open(self.s_junctions_json,"r") as junctions_json:
+      for s_line in junctions_json:
+      
+        # Locate the coords of the center circles
+        if '"graphical_center_coords":' in s_line:
+          # Print progress to command line
+          n_junctions += 1
+          print('Drawing Junction #{} / '.format(n_junctions) + str(self.n_junctions),end='\r')
+          
+          # Extract the center coordinates
+          # 'xx.xxxx,yy.yyyy'
+          s_center_coords = s_line[s_line.index('[')+1:s_line.index(']')]
+          # ['xx.xxxx','yy.yyyy']
+          ls_center_coords = s_center_coords.split(',')
+          # If the number has many points past the decimol we must first
+          # cast to float then to int to reduce errors
+          # xx
+          n_center_x = int(float(ls_center_coords[0]))
+          # yy
+          n_center_y = int(float(ls_center_coords[1]))
+          # Point(x,y)
+          p_center = Point(n_center_x,n_center_y)
+          circle = Circle(p_center,n_rad)
+          circle.draw(self.window)
+          
+        # end if grahical_center_coords
+      # end for s_line in edges_json
+    # end with open juncts.json
+    
+    # After we plot our points we can the plot our edges.
+    n_edges = 0
+    print()
+    with open(self.s_edges_json,'r') as edges_json:
+      for s_line in edges_json:
+        if '"graphical_coords":' in s_line:
+          # Print progress to command line
+          n_edges += 1
+          print('Drawing edge #{} / '.format(n_edges) + str(self.n_edges),end='\r')
+          
+          # 'x1.x1,y1.y1],[x2.x2,y2.y2'
+          s_coords = s_line[s_line.index('[[')+2:s_line.index(']]')]
+          
+          # 'x1.x1,y1.y1'
+          s_coords_from = s_coords[:s_coords.index(']')]
+          # ['xx.xx','yy.yy']
+          ls_coords_from = s_coords_from.split(',')
+          #
+          n_from_x = int(float(ls_coords_from[0]))
+          n_from_y = int(float(ls_coords_from[1]))
+          p_from = Point(n_from_x,n_from_y)
+          
+          #'x2.x2,y2.y2'
+          s_coords_to = s_coords[s_coords.index('[')+1:]
+          # ['xx.xx','yy.yy']
+          ls_coords_to = s_coords_to.split(',')
+          #
+          n_to_x = int(float(ls_coords_to[0]))
+          n_to_y = int(float(ls_coords_to[1]))
+          p_to = Point(n_to_x,n_to_y)
+          
+          # Draw line from point to point.
+          line = Line(p_from,p_to)
+          line.setArrow("last")
+          line.draw(self.window)
+        # end if '"graphical_coords":' in s_line:
+      # end for line
+    # end with open edges.json
+    #
     for junction in self.l_junctions:
       p_center = junction.get_center_point()
       circle = Circle(p_center,n_rad)
