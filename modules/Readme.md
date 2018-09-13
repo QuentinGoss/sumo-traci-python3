@@ -1,9 +1,16 @@
 # <a name="top_of_page"></a>modules
-[Point of Interest](#poi) , [Vehicle](#vehicle)
+[GUI](#gui) , [Point of Interest](#poi) , [Vehicle](#vehicle)
 >Quentin: This section contains notes about the various python modules we created.
 >
 >[Sumo + TraCI Home](../Readme.md)
 
+---
+<!-- begin GUI -->
+## <a name="gui"></a>GUI
+[Top](#top_of_page)
+
+Documention for the GUI has it's own readme [gui.md](./gui/gui.md).
+<!-- end GUI --> 
 ---
 <!-- begin poi -->
 ## <a name="poi"></a>Point of Interest
