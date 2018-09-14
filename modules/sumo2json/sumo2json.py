@@ -2,12 +2,31 @@
 # Last Modified: 9/12/2018
 # Converts select sumo .net.xml data into .json format.
 
-def test():
-  s_net_xml = "Davenport.net.xml"
+def main():
   
-  convert_junctions(s_net_xml)
-  convert_edges(s_net_xml)
+  options = get_options()
+  print('Using .net.xml >> \'{}\''.format(options.net_xml))
+  
+  convert_junctions(options.net_xml)
+  convert_edges(options.net_xml)
 # end test
+
+# Get options from optparse
+# @return options - Flag options
+def get_options():
+  from optparse import OptionParser
+  parser = OptionParser()
+  parser.add_option('-f', '--net_xml', help='Path of the NET_XML file', action='store', type='string', dest='net_xml', default='None')
+  (options, args) = parser.parse_args()
+  
+  if options.net_xml == 'None':
+    raise Exception('.net.xml not declared. Please point to the .net.xml using --net_xml NET_XML.')
+  elif options.net_xml[0-len('.net.xml'):] != '.net.xml':
+    raise Exception('Incorrect .net.xml file extension >> \'{}\'. Must end in .net.xml!' .format(options.net_xml))
+  
+  return options
+
+# end def get_options()
 
 # Get the boundaries from the .net.xml
 #
@@ -242,4 +261,4 @@ def combine_and_write_edge_json(is_first, s_id_to, s_id_from, s_true_coords_from
   # end with open edges.json
 # end def combine_and_write_edge_json
 
-test()
+main()
