@@ -1,9 +1,9 @@
 <configuration>
 	<input>
 		<net-file value="leopard.net.xml" />
-		<route-files value="trips.trips.xml" />
+		<route-files value="leopard.rou.xml" />
 		<gui-settings-file value="leopard.settings.xml" />
-		<error-log value="errors.txt" />
+		<!--<error-log value="errors.txt" />-->
 	</input>
 	<time>
 		<begin value="0"/>
