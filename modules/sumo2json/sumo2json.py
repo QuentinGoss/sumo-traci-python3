@@ -16,7 +16,7 @@ def main():
 def get_options():
   from optparse import OptionParser
   parser = OptionParser()
-  parser.add_option('-f', '--net_xml', help='Path of the NET_XML file', action='store', type='string', dest='net_xml', default='None')
+  parser.add_option('--net_xml', help='Path of the NET_XML file', action='store', type='string', dest='net_xml', default='None')
   (options, args) = parser.parse_args()
   
   if options.net_xml == 'None':
