@@ -31,7 +31,7 @@ o_poi = poi.poi("veh0",30.0,25.0,50,("gneE15",15.4,10.3))
 ---
 <!-- begin sumo2json -->
 ## <a name="sumo2json"></a>sumo2json
-[Top](#top_of_page)
+[Top](#top_of_page) , [Changelog](#sumo2json_changelog
 
 `sumo2json` is a module that converts data from a `.net.xml` file into two seperate `.json` files:
 - `junctions.json` which contains node data.
@@ -51,6 +51,13 @@ python3 sumo2json.py -f Davenport.net.xml
 ```
 
 Failure to specify a `.net.xml` file or by specifying one without the `.net.xml` extension will result in an exception being raised.
+
+### <a name="sumo2json_changelog"></a>Changelog
+[sumo2json](#sumo2json) ,  [Version 2](#sumo2json_changelog_2)
+
+#### <a name="sumo2json_changelog_2"><a/>Version 2
+Added the the fields `from` and `to` which contains strings of the junction ids.
+
 <!-- end sumo2json -->
 ---
 <!-- begin vehicle -->
